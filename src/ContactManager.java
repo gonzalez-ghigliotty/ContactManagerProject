@@ -1,5 +1,3 @@
-//package src;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -10,10 +8,10 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
-public class mainClass {
+public class ContactManager {
     public static void main(String[] args) {
 
-        System.out.println("1. View contacts.\n" +
+        System.out.println("1. View Contacts.\n" +
                 "2. Add a new contact.\n" +
                 "3. Search a contact by name.\n" +
                 "4. Delete an existing contact.\n" +
@@ -23,7 +21,7 @@ public class mainClass {
         String response = scan.next();
 
         if (response.contains("1")) {
-            contacts.main();
+            Contacts.main();
             System.out.println();
             System.out.println("Press '0' to return to menu.");
             String back = scan.next();
@@ -40,7 +38,7 @@ public class mainClass {
 
             try {
                 Files.write(
-                        Paths.get("src/", "contacts.txt"),
+                        Paths.get("src/", "Contacts.txt"),
                         Arrays.asList(newContact), // list with one item
                         StandardOpenOption.APPEND
                 );
@@ -54,7 +52,7 @@ public class mainClass {
             String newSearch;
             System.out.println("Search for your contact.");
             newSearch = scan.next();
-            Path contactPath = Paths.get("src/","contacts.txt");
+            Path contactPath = Paths.get("src/","Contacts.txt");
             List<String> contactList = null;
             try {
                 contactList = Files.readAllLines(contactPath);
@@ -67,7 +65,12 @@ public class mainClass {
             for (int i = 0; i < contactList.size(); i ++) {
                 StringTokenizer contactLine = new StringTokenizer(contactList.get(i));
                 String token = contactLine.nextElement().toString();
-
+                if (token.contains(newSearch)) {
+                    for (int ii = 0; contactLine.hasMoreElements(); ii++) {
+                        String token2 = contactLine.nextElement().toString();
+                        System.out.printf("%-15s|", token2);
+                    }
+                }
 
 
                 System.out.println(token);

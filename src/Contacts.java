@@ -1,5 +1,3 @@
-//package src;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -7,10 +5,10 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.StringTokenizer;
 
-public class contacts {
+public class Contacts {
     public static void main() {
 
-        Path contactPath = Paths.get("src/","contacts.txt");
+        Path contactPath = Paths.get("src/","Contacts.txt");
         List<String> contactList = null;
         try {
             contactList = Files.readAllLines(contactPath);
