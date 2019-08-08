@@ -34,19 +34,10 @@ public class Contacts {
             Contacts newContact = new Contacts();
             String newName = contactList.get(i);
             newContact.getName(newName);
-//            System.out.println(newName);
             String[] splitName = newName.split(" ");
-//            System.out.println(splitName[0]);
             System.out.printf("%-15s|%-15s", splitName[0], splitName[1]);
             System.out.println();
 
-//            StringTokenizer contactLine = new StringTokenizer(contactList.get(i));
-
-//            for (int ii = 0; contactLine.hasMoreElements(); ii++) {
-//                String token = contactLine.nextElement().toString();
-//                System.out.printf("%-15s|", token);
-//            }
-//            System.out.println();
         }
     }
 }

@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -64,7 +65,6 @@ public class ContactManager {
                 System.out.println("--------------------------------");
                 for (int i = 0; i < contactList.size(); i++) {
                     String checkName = contactList.get(i);
-//                System.out.println(checkName);
                     String[] filterSplitName = checkName.split(" ");
                     if (filterSplitName[0].contains(newSearch)) {
                         System.out.printf("%-15s|%-15s", filterSplitName[0], filterSplitName[1]);
@@ -87,7 +87,54 @@ public class ContactManager {
                 } while (asking);
             } while (true);
         } else if (response.contains("4")) {
+            System.out.println("Who do you wish to shun?");
+            String delete = scan.next();
+            Path contactPath = Paths.get("src/", "Contacts.txt");
+            List<String> contactList = null;
+            try {
+                contactList = Files.readAllLines(contactPath);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            boolean foundSomeone = true;
+            for (int i = 0; i < contactList.size(); i++) {
+                String checkName = contactList.get(i);
+                String[] deleteSplitName = checkName.split(" ");
+                if (deleteSplitName[0].contains(delete)) {
+                    System.out.printf("%-15s|%-15s", deleteSplitName[0], deleteSplitName[1]);
+                    System.out.println();
+                    System.out.println("Are you sure you wish to shun contact?");
+                    String confirm = scan.next();
+                    try {
+//                        Files.write(
+                                contactList.remove(contactList.get(i));
+                        PrintWriter writer = new PrintWriter("src/contacts.txt");
+                        for (int ii = 0; ii < contactList.size(); ii++)
+                            writer.println(contactList.get(ii));
+                        writer.close();
+//                                Paths.get("src/", "Contacts.txt"),
+//                                Arrays.asList(deleteSplitName), // list with one item
+//                                StandardOpenOption.
+//                        );
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    System.out.println("Press any key to return to menu.");
+                    String back = scan.next();
+                    main(null);
+                }
+                if (!deleteSplitName[0].contains(delete)) {
+                    foundSomeone = false;
+                }
+            } if (!foundSomeone) {
+                System.out.println("No contact was found. Unable to complete shun.");
+                System.out.println("Press any key to return to menu.");
+                String back = scan.next();
+                main(null);
+            }
 
+        } else if (response.contains("5")) {
+            System.out.println("LATERSSSSSSSSSSS \uD83E\uDD2A");
         }
     }
 }
