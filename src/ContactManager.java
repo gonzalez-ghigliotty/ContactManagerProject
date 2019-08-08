@@ -6,7 +6,6 @@ import java.nio.file.StandardOpenOption;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
-import java.util.StringTokenizer;
 
 public class ContactManager {
     public static void main(String[] args) {
@@ -30,9 +29,9 @@ public class ContactManager {
             }
         } else if (response.contains("2")) {
             String newContact;
-            System.out.println("Enter name of contact.");
+            System.out.println("Enter first name of contact: ");
             String newName = scan.next();
-            System.out.println("Enter phone number of contact.");
+            System.out.println("Enter phone number of contact: ");
             String newNumber = scan.next();
             newContact = newName + " " + newNumber;
 
@@ -63,17 +62,14 @@ public class ContactManager {
 
 
             for (int i = 0; i < contactList.size(); i ++) {
-                StringTokenizer contactLine = new StringTokenizer(contactList.get(i));
-                String token = contactLine.nextElement().toString();
-                if (token.contains(newSearch)) {
-                    for (int ii = 0; contactLine.hasMoreElements(); ii++) {
-                        String token2 = contactLine.nextElement().toString();
-                        System.out.printf("%-15s|", token2);
-                    }
-                }
+                String checkName = contactList.get(i);
+                System.out.println(checkName);
+//                checkName.getName("");
+//                String[] splitName = newName.split(" ");
+//            }
 
 
-                System.out.println(token);
+//                System.out.println(token);
             }
         }
     }
