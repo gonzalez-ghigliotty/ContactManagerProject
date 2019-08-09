@@ -2,7 +2,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.List;
 
 public class Contacts {
@@ -17,7 +16,7 @@ public class Contacts {
     public String getNumber(String number) {return number;}
 
     public static void main() {
-
+                            // prints contact list
         Path contactPath = Paths.get("src/","Contacts.txt");
         List<String> contactList = null;
         try {
@@ -25,7 +24,7 @@ public class Contacts {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.printf("%-15s|%-15s|", "     Name", " Phone Number");
+        System.out.printf("%-15s| %-15s|", "     Name", "Phone Number");
         System.out.println();
         System.out.println("--------------------------------");
 
@@ -35,7 +34,7 @@ public class Contacts {
             String newName = contactList.get(i);
             newContact.getName(newName);
             String[] splitName = newName.split(" ");
-            System.out.printf("%-15s|%-15s", splitName[0], splitName[1]);
+            System.out.printf("%-15s| %-15s|", splitName[0], splitName[1]);
             System.out.println();
 
         }

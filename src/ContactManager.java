@@ -20,6 +20,8 @@ public class ContactManager {
                 "Enter an option (1, 2, 3, 4 or 5):");
         Scanner scan = new Scanner(System.in);
         String response = scan.nextLine();
+
+
 //          TODO: Create a if to output the contacts.txt file. and to return to the main menu.
         if (response.equals("1")) {
             Contacts.main();
@@ -27,6 +29,8 @@ public class ContactManager {
             System.out.println("Press any key to return to menu.");
             String back = scan.next();
                 main(null);
+
+
 //           TODO: ADD a else if to allow the user to add a contact.
         } else if (response.equals("2")) {
             String newContact;
@@ -35,6 +39,8 @@ public class ContactManager {
             System.out.println("Enter phone number of contact: ");
             String newNumber = scan.next();
             newContact = newName + " " + newNumber;
+
+
 //            TODO: Create the try/catch to avoid getting errors and to prompt the user of existing contact.
 
             Path contactPath = Paths.get("src/", "Contacts.txt");
@@ -91,6 +97,7 @@ public class ContactManager {
                 main(null);
             }
 
+
 //            TODO: Allow the user to search for a contact and if more than one contact share a same character, an array list will drop down.
         } else if (response.equals("3")) {
             do {
@@ -106,14 +113,14 @@ public class ContactManager {
                 }
                 List<String> filteredList = null;
 
-                System.out.printf("%-15s|%-15s|", "     Name", " Phone Number");
+                System.out.printf("%-15s| %-15s|", "     Name", " Phone Number");
                 System.out.println();
                 System.out.println("--------------------------------");
                 for (int i = 0; i < contactList.size(); i++) {
                     String checkName = contactList.get(i);
                     String[] filterSplitName = checkName.split(" ");
-                    if (filterSplitName[0].contains(newSearch)) {
-                        System.out.printf("%-15s|%-15s", filterSplitName[0], filterSplitName[1]);
+                    if (filterSplitName[0].toLowerCase().contains(newSearch.toLowerCase())) {
+                        System.out.printf("%-15s| %-15s|", filterSplitName[0], filterSplitName[1]);
                         System.out.println();
                     }
                 }
@@ -132,6 +139,8 @@ public class ContactManager {
                     }
                 } while (asking);
             } while (true);
+
+
 //            TODO: Prompt the user about deleting a contact and making sure the input is a actual contact.
         } else if (response.equals("4")) {
             System.out.println("Who do you wish to shun?");
@@ -147,24 +156,32 @@ public class ContactManager {
             for (int i = 0; i < contactList.size(); i++) {
                 String checkName = contactList.get(i);
                 String[] deleteSplitName = checkName.split(" ");
-                if (deleteSplitName[0].contains(delete)) {
-                    System.out.printf("%-15s|%-15s", deleteSplitName[0], deleteSplitName[1]);
+                if (deleteSplitName[0].toLowerCase().contains(delete.toLowerCase())) {
+                    System.out.printf("%-15s| %-15s|", deleteSplitName[0], deleteSplitName[1]);
                     System.out.println();
                     System.out.println("Are you sure you wish to shun contact?");
                     String confirm = scan.next();
-                    try {
-                                contactList.remove(contactList.get(i));
-                        PrintWriter writer = new PrintWriter("src/contacts.txt");
-                        for (int ii = 0; ii < contactList.size(); ii++)
-                            writer.println(contactList.get(ii));
-                        writer.close();
+                    if (confirm.contains("y")) {
+                        try {
+                            contactList.remove(contactList.get(i));
+                            PrintWriter writer = new PrintWriter("src/contacts.txt");
+                            for (int ii = 0; ii < contactList.size(); ii++)
+                                writer.println(contactList.get(ii));
+                            writer.close();
 
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        System.out.println(deleteSplitName[0] + " has been shunned.");
+                        System.out.println("Press any key to return to menu.");
+                        String back = scan.next();
+                        main(null);
+                    } else {
+                        System.out.println("Ok, " + deleteSplitName[0] + " won't be shunned.");
+                        System.out.println("Press any key to return to menu.");
+                        String back = scan.next();
+                        main(null);
                     }
-                    System.out.println("Press any key to return to menu.");
-                    String back = scan.next();
-                    main(null);
                 }
                 if (!deleteSplitName[0].contains(delete)) {
                     foundSomeone = false;
@@ -175,10 +192,20 @@ public class ContactManager {
                 String back = scan.next();
                 main(null);
             }
+
+
 //            TODO: Create a functioning exit option.
         } else if (response.equals("5")) {
             System.out.println("LATERSSSSSSSSSSS \uD83E\uDD2A");
             System.exit(0);
+
+
+//            TODO: In case user doesn't put a valid answer.
+        } else {
+            System.out.println("That's not a valid answer.");
+            System.out.println();
+            System.out.println();
+            main(null);
         }
     }
 }
